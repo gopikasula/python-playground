@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import pprint
 
 response = requests.get('https://news.ycombinator.com/news')
 hacker_news = BeautifulSoup(response.text, 'html.parser')
@@ -10,13 +11,14 @@ def create_news_entity( title_and_links, scores):
     news_entities = []
     for idx, item in enumerate(title_and_links):
         title = item.getText()
-        link = item['href']
-        points = scores[idx].getText()
-        news_entities.append({
-            'title': title,
-            'link': link,
-            'points': points
-        })
+        link = item.get('href', "")
+        points = int(scores[idx].getText().replace(" points",""))
+        if points > 100 :
+            news_entities.append({
+                'title': title,
+                'link': link,
+                'points': points
+            })
     return news_entities
 
-print(create_news_entity(title_and_links, scores))
+pprint.pprint(create_news_entity(title_and_links, scores))
