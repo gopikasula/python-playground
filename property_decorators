@@ -1,0 +1,402 @@
+"""
+name = input("what is your name?")
+password = input("enter your password")
+
+pass_length = len(password)
+pass_secret = "*" * pass_length
+
+print(f"{name} your password {pass_secret} is , {pass_length} long")
+
+
+bucket = [4,3,2,1]
+appended_bucket = bucket.append(5)
+remove_by_value = bucket.remove(2)
+pop_by_index = bucket.pop(1)
+extend_with_new_list = bucket.extend([8,9,9])
+get_index_of_ele = bucket.index(8,0,5)
+count_occurances = bucket.count(9)
+print(bucket)
+print(bucket[2:])
+print(get_index_of_ele)
+print(count_occurances)
+print(1 in bucket)
+print(bucket.copy())
+print(bucket.reverse())
+print(sorted(bucket))
+
+print(type({
+  "a":1
+}))
+
+user = dict(name="gopi krishna")
+print(user)
+print(user.keys())
+print(user.values())
+user.update(age=24)
+print(user)
+print(user.get("school","gokaraju"))
+
+user = [(1,2)]
+print(dict(user))
+
+user1 = {1,2,3,4,5,5}
+user2 = {4,5,6,7,8}
+
+print(user1.union(user2))
+user = (1,2,3,4)
+
+
+is_licensed = False
+is_old_to_drive = False
+
+if is_licensed and is_old_to_drive:
+    print("He is perfect")
+elif not is_licensed:
+    print("no lic")
+else:
+    print("do nothhing")
+
+print(
+  "1" if False else "0"
+)
+
+for x in (1,2,3):
+  for y in ('a','b','c'):
+    print(f"{x} {y}")
+
+user = {
+  "name":"gopi krishna",
+  "age":25,
+  "sex":"male"
+}
+
+for (key, value) in user.items():
+  print(f"{key} : {value} ")
+
+
+my_list = [1,2,3,4,5]
+total = 0
+for x in my_list:
+  total += x  
+print(total)  
+
+
+my_list = ['a','a','b','c','d','d','e']
+dup_checker = dict()
+
+for ele in my_list:
+    dup_checker.update({
+      ele : dup_checker.get(ele , 0) + 1 
+      })
+
+print(dup_checker)
+
+for (k, v) in dup_checker.items():
+  if v > 1:
+    print(k)
+
+my_list = [1,2,3,4,5,6,7,8,9]
+max_val = -2
+for ele in my_list:
+  if ele > max_val and ele % 2 == 0 : 
+      max_val = ele
+print(max_val)
+
+
+class LicenceCard:
+  
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+
+  def printLicence(self):
+    if(self.age > 21):
+      print(f"my nane is {self.name} and age is {self.age}")
+    else:
+      print("Not elgible")
+
+license = LicenceCard("Gopi Krishna", 21)
+
+license.printLicence()
+
+class Person():
+  def __init__(self, name, age):
+    self.name = name
+    self.age = age
+
+
+  def __str__(self):
+    return f"name : {self.name} and age : {self.age} "
+
+class Student(Person):
+  def __init__(self, name, age, grade):
+    super().__init__(name, age);
+    self.grade = grade
+
+  def learn(self):
+    return f"I {self.name} learn and my grade is {self.grade}"
+
+class Teacher(Person):
+  def __init__(self, name, age, experience):
+    super().__init__(name, age)
+    self.experience = experience
+
+  def teach(self):
+    return f"I {self.name} teach and my experience is {self.experience}"
+
+
+student = Student("Gopi Krishna", "26", "3.2")
+teacher = Teacher("Teacher", "50", "10 yrs")   
+
+print(str(student))
+print(student.learn())
+
+print(str(teacher))
+print(teacher.teach())
+
+from functools import reduce
+def mul_by_2(acc, item):
+  return acc + item
+print((reduce(lambda acc, item: acc + item, [1,2,3,4], 0)))
+
+my_list = [(1,2),(2,1),(2,0)]
+
+my_list.sort(key = lambda x : x[1])
+
+print(my_list)
+
+my_list = [num for num in range(0, 100)  if num % 2 == 0]
+print(my_list)
+
+
+list1 = "abcd"
+list2 = "1234"
+
+my_list = [ char + num for char in list1 if char == 'b' for num in list2 if int(num) % 2 == 0 ]
+print(my_list)
+
+
+my_dict = {
+  value : index  for index, value in enumerate(['a', 'b', 'c']) if index % 2 == 0
+}
+
+print(my_dict)
+
+my_duplicates = ['a','a','b','d','t','q','q','u','i','o','r']
+
+print(list({char for char in my_duplicates if my_duplicates.count(char) > 1 }))
+
+
+
+def my_decorator(func):
+  def wrap_func(*args, **kwargs):
+    print("**********")
+    func(*args, **kwargs)
+    print("**********")
+  return wrap_func  
+
+@my_decorator
+def hello(name):
+  print(f"hello {name}")
+
+hello("gopi")
+
+def authenticated(func):
+  def wrap_func(*args, **kwargs):
+    print(kwargs)
+    if kwargs.get("access_token") == "123" :
+      func(*args, **kwargs)
+    else:
+      print("not authenticated")
+  return wrap_func
+
+
+@authenticated
+def hello(name, access_token):
+  print(f"hello {name}")
+
+hello("gopi",  access_token = "123")
+
+from time import time
+
+def performance(func):
+  def wrapped_func(*args, **kwargs):
+    t1 = time()
+    func(*args, **kwargs)
+    t2 = time()
+    print(f"Time took {t2 - t1}")
+  return wrapped_func  
+    
+
+@performance
+def test1(num):
+  for i in range(num):
+    i
+
+@performance
+def test2(num):
+  for i in list(range(num)):
+    i  
+
+test1(10000000)
+test2(10000000)
+
+
+
+from time import time
+
+def performance(func):
+  
+  performance decorator to calculate time
+  taken to execute the function 
+
+  def wrapped_func(*args, **kwargs):
+    t1 = time()
+    func(*args, **kwargs)
+    t2 = time()
+    print(f"Time took {t2 - t1}")
+  return wrapped_func  
+
+
+help(performance)
+
+
+class GenFibonacciWithoutGenerator():
+  
+
+  def __init__(self, first, last, num):
+    self.first = first
+    self.last = last   
+    self.num = num
+    self.series = [first, last]
+  
+ 
+  def generate(self):
+    while len(self.series) < self.num:
+      temp = self.last
+      self.last += self.first
+      self.first = temp
+      self.series.append(self.last)
+    return self.series
+
+
+class GenFibonacciWithGenerator():
+
+
+  def __init__(self, first, last, num):
+    self.first = first
+    self.last = last
+    self.num = num
+    self.counter = 2
+
+  def __iter__(self):
+    return self
+   
+  def __next__(self):
+    if self.counter < self.num:
+      temp = self.last
+      self.last += self.first
+      self.first = temp
+      self.counter += 1
+      return self.last 
+    raise StopIteration
+
+
+@performance
+def fibWithoutGenerator(first, last, num):
+  fib = GenFibonacciWithoutGenerator(first, last, num)
+  fib_series = fib.generate()
+  #print(fib_series)
+  fib_series
+
+@performance
+def fibWithGenerator(first, last, num):
+  fib = GenFibonacciWithGenerator(first, last, num)
+  #print(f"{first} {last}", end = " ")
+  for n in fib:
+    #print(n, end = " ")
+    n
+
+
+fibWithoutGenerator(0, 1, 100000)
+fibWithGenerator(0, 1, 100000)
+
+
+from time import time
+
+def performance(func):
+
+  performance decorator to calculate time
+  taken to execute the function 
+
+  def wrapped_func(*args, **kwargs):
+    t1 = time()
+    func(*args, **kwargs)
+    t2 = time()
+    print(f"Time took {t2 - t1}")
+  return wrapped_func  
+
+
+@performance
+def fibWithoutGenerator(first, last, num):
+  series = []
+  for i in range(num):
+    series.append(first)
+    temp = last
+    last = first + last
+    first = temp
+  print(series)
+
+
+def fibWithGenerator(first, last, num):
+  for i in range(num):
+    yield first
+    temp = last
+    last = first + last
+    first = temp
+
+fibWithoutGenerator(0, 1, 10000000)
+
+for i in fibWithGenerator(0, 1, 100000000):
+  print(i)
+
+"""
+
+
+class Employee:
+  
+  def __init__(self, firstName, lastName, salary):
+    self.firstName = firstName;
+    self.lastName = lastName;
+    self.salary = salary;
+    self.email = firstName + '.' + lastName + '@email.com'
+
+  def __repr__(self):
+    return "Employee('{}','{}', {})".format(self.firstName, self.lastName, self.salary)
+
+  def __str__(self):
+    return " {} {} and salary is {}".format(self.firstName, self.lastName, self.salary)
+
+  def __add__(self, other):
+    return self.salary + other.salary  
+
+  def fullName(self):
+    return "{} {}".format(self.firstName, self.lastName)
+  
+  @property
+  def email(self):
+    return "{}.{}@email.com".format(self.firstName, self.lastName)
+
+employee1 = Employee("Jack", "Reacher", 25)
+employee2 = Employee("Ethan", "Hunt", 28)
+
+#overloading using dunders
+print(employee1 + employee2)
+
+print(employee1.fullName())
+print(employee1.email)
+employee1.firstName = "Jack 2"
+print(employee1.email)
+
+#property decorators for making email function as property
